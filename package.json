@@ -1,0 +1,41 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/dbublikov/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/dbublikov/frontend-project-lvl2/actions)",
+  "main": "src/index.js",
+  "type": "module",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbublikov/frontend-project-lvl2.git"
+  },
+  "keywords": [],
+  "author": "dbublikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dbublikov/frontend-project-lvl2/issues"
+  },
+  "homepage": "https://github.com/dbublikov/frontend-project-lvl2#readme",
+  "dependencies": {
+    "commander": "^7.2.0",
+    "errno": "^1.0.0",
+    "js-yaml": "^3.14.1",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-jest": "^24.3.6",
+    "jest": "^27.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {}
+  }
+}
