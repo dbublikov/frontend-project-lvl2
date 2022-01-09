@@ -6,3 +6,9 @@ lint:#initializing linter
 
 lintfix:#fixing linter
 	npx eslint . --fix
+
+test:#initilizing tests on GitHub Actions
+	npm test
+
+test-coverage:#initilizing test-coverage
+	npm test -- --coverage --coverageProvider=v8
