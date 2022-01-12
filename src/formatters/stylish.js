@@ -1,18 +1,34 @@
-const getString = (value) => value;
+import _ from 'lodash';
+
+const getIdent = (spaces) => ('  '.repeat(spaces));
+
+const getString = (value, spaces = 0) => {
+  if (!_.isObject(value)) {
+    return value;
+  }
+  const lines = _.keys(value).map((node) => `${getIdent(spaces + 2)}  ${node}: ${getString(value[node], spaces + 2)}`);
+  const innerValue = lines.join('\n');
+  return `{\n${innerValue}\n${getIdent(spaces + 1)}}`;
+};
 
 const formatStylish = (diff) => {
-  const lines = diff.map((node) => {
-    const diffType = {
-      removed: () => ` - ${node.name}: ${getString(node.value)}`,
-      unchanged: () => `   ${node.name}: ${getString(node.value)}`,
-      changed: () => ` - ${node.name}: ${getString(node.firstValue)}\n + ${node.name}: ${getString(node.secondValue)}`,
-      added: () => ` + ${node.name}: ${getString(node.value)}`,
-    };
-    return diffType[node.type]();
-  });
-  console.log(lines);
-  const innerValue = lines.join('\n');
-  return `{\n${innerValue}\n}`;
+  const iter = (newDiff, spaces = 1) => {
+    const lines = newDiff.map(({
+      name, value, firstValue, secondValue, children, type,
+    }) => {
+      const diffType = {
+        removed: () => `${getIdent(spaces)}- ${name}: ${getString(value, spaces)}`,
+        unchanged: () => `${getIdent(spaces)}  ${name}: ${getString(value, spaces)}`,
+        changed: () => `${getIdent(spaces)}- ${name}: ${getString(firstValue, spaces)}\n${getIdent(spaces)}+ ${name}: ${getString(secondValue, spaces)}`,
+        added: () => `${getIdent(spaces)}+ ${name}: ${getString(value, spaces)}`,
+        nested: () => `${getIdent(spaces)}  ${name}: ${iter(children, spaces + 2)}`,
+      };
+      return diffType[type]();
+    });
+    const innerValue = lines.join('\n');
+    return `{\n${innerValue}\n${getIdent(spaces - 1)}}`;
+  };
+  return iter(diff);
 };
 
 export default formatStylish;

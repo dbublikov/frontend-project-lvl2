@@ -10,6 +10,9 @@ const calculateDiff = (data1, data2) => {
       if (!_.has(data2, node)) {
         return { name: node, type: 'removed', value: data1[node] };
       }
+      if (_.isObject(data1[node]) && _.isObject(data2[node])) {
+        return { name: node, type: 'nested', children: calculateDiff(data1[node], data2[node]) };
+      }
       if ((typeof data1[node] !== typeof data2[node]) || (data1[node] !== data2[node])) {
         return {
           name: node,
