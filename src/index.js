@@ -13,6 +13,6 @@ const getParesedData = (file) => {
 export default (file1, file2, format = 'stylish') => {
   const diff = calculateDiff(getParesedData(file1), getParesedData(file2));
   // console.log(diff);
-  console.log(JSON.stringify(diff, null, '  '));
+  // console.log(JSON.stringify(diff, null, '  '));
   return visualize(diff, format);
 };
